@@ -15,14 +15,9 @@ public class CustomerResource {
     private static final Logger LOGGER = LoggerFactory.getLogger(CustomerResource.class);
 
     @POST@Transactional
-    public Customer addCustomer(Customer customer) {
+    public Customer addCustomer(CustomerRecord customerRecord) {
 
-        if (customer.getFirstName().equals("Jeremy")){
-            customer.customerStatus = CustomerStatus.VIP;
-        }else if(customer.getFirstName().equals("Robert")){
-            customer.customerStatus = CustomerStatus.NOT_THAT_GUY_AGAIN;
-        }
-
+        Customer customer = Customer.createFromValues(customerRecord);
         customer.persist();
         return customer;
     }

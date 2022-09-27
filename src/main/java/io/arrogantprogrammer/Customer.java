@@ -15,6 +15,22 @@ public class Customer extends PanacheEntity {
 
     CustomerStatus customerStatus;
 
+    static Customer createFromValues(CustomerRecord customerRecord) {
+
+        Customer customer = new Customer();
+        customer.email = customerRecord.email();
+        customer.firstName = customerRecord.firstName();
+        customer.lastName = customerRecord.lastName();
+
+        if (customer.getFirstName().equals("Jeremy")){
+            customer.customerStatus = CustomerStatus.VIP;
+        }else if(customer.getFirstName().equals("Robert")){
+            customer.customerStatus = CustomerStatus.NOT_THAT_GUY_AGAIN;
+        }
+
+        return customer;
+    }
+
     public Customer() {
     }
 
