@@ -16,10 +16,14 @@ public class CustomerService {
     @Inject
     CustomerRepository customerRepository;
 
+    @Inject
+    NotificationService notificationService;
+
     CustomerRecord createCustomer(CustomerRecord customerRecord) {
 
         Customer customer = Customer.createFromValues(customerRecord);
         customerRepository.persist(customer);
+        notificationService.customerAdded(customer.toCustomerRecord());
         return customer.toCustomerRecord();
     }
 
