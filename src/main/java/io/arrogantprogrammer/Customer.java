@@ -30,6 +30,10 @@ public class Customer extends PanacheEntity {
 
         return customer;
     }
+    CustomerRecord toCustomerRecord() {
+        return new CustomerRecord(this.id, this.email, this.firstName, this.lastName);
+    }
+
 
     public Customer() {
     }
@@ -49,4 +53,5 @@ public class Customer extends PanacheEntity {
     public CustomerStatus getCustomerStatus() {
         return customerStatus;
     }
+
 }

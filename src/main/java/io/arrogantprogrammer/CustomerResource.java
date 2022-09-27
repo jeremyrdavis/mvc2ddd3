@@ -3,6 +3,7 @@ package io.arrogantprogrammer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -14,17 +15,19 @@ public class CustomerResource {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CustomerResource.class);
 
-    @POST@Transactional
-    public Customer addCustomer(CustomerRecord customerRecord) {
+    @Inject
+    CustomerService customerService;
 
-        Customer customer = Customer.createFromValues(customerRecord);
-        customer.persist();
-        return customer;
+    @POST@Transactional
+    public CustomerRecord addCustomer(CustomerRecord customerRecord) {
+
+        CustomerRecord result = customerService.createCustomer(customerRecord);
+        return result;
     }
 
     @GET
-    public List<Customer> allCustomers() {
+    public List<CustomerRecord> allCustomers() {
 
-        return Customer.listAll();
+        return customerService.listAll();
     }
 }
